@@ -1,7 +1,4 @@
-import React, { useReducer } from 'react'
-import { DrawerActions } from 'react-navigation'
-
-const BlogContext = React.createContext()
+import createDataContext from '../context/createDataContext'
 
 const blogReducer = (state, action ) => {
     switch (action.type) {
@@ -15,22 +12,14 @@ const blogReducer = (state, action ) => {
     }
 }
 
-export const BlogProvider = ( props ) => {
-    const [blogPosts, dispatch] = useReducer(blogReducer, [{title: "Test Blog Title", content: "Test Blog Content"}] )
-
-    const addBlogPost = () => {
-        return (
-            dispatch({type: 'add_blogpost'})
-        )
+const addBlogPost = dispatch => {
+    return () => {
+        dispatch({type: 'add_blogpost'})
     }
-
-    return (
-        <BlogContext.Provider
-            value={{data: blogPosts, addBlogPost}}
-        >
-            { props.children }
-        </BlogContext.Provider>
-    )
 }
 
-export default BlogContext
+export const { Context, Provider } = createDataContext(
+        blogReducer,
+        {addBlogPost},
+        [{title: "Text Blog Title", content: "Test Blog Content"}]
+    )
