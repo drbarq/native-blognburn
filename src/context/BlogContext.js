@@ -1,12 +1,14 @@
-import React, {useReducer} from 'react'
+import React, { useReducer } from 'react'
+import { DrawerActions } from 'react-navigation'
 
 const BlogContext = React.createContext()
 
-const blogReducer = ( state, action ) => {
+const blogReducer = (state, action ) => {
     switch (action.type) {
-        case "add_blogpost":
+        case 'add_blogpost':
             return [
-                ...state, { title: `Blog Post #${state.length + 1}`}
+                ...state,
+                {title: `New Blog Post #${state.length + 1}`}
             ]
         default:
             return state
@@ -14,15 +16,17 @@ const blogReducer = ( state, action ) => {
 }
 
 export const BlogProvider = ( props ) => {
-    const [blogPosts, dispatch] = useReducer(blogReducer, [{title: "Test Blog", content: "Test Content"}])
+    const [blogPosts, dispatch] = useReducer(blogReducer, [{title: "Test Blog Title", content: "Test Blog Content"}] )
 
     const addBlogPost = () => {
-        dispatch({type: 'add_blogpost'})
+        return (
+            dispatch({type: 'add_blogpost'})
+        )
     }
 
     return (
         <BlogContext.Provider
-            value={{data: blogPosts, addBlogPost }}
+            value={{data: blogPosts, addBlogPost}}
         >
             { props.children }
         </BlogContext.Provider>
