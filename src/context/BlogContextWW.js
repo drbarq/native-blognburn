@@ -1,11 +1,11 @@
-import createDataContext from '../context/createDataContext'
+import createDataContext from './createDataContext'
 
 const blogReducer = ( state, action ) => {
-    switch (action.type) {
+    switch(action.type) {
         case 'add_blogpost':
             return [
-                ...state,
-                {title: `New Blog Post #${state.length + 1}`}
+                ...state, 
+                {title: `Test Blog Title ${state.length}`}
             ]
         default:
             return state
@@ -19,7 +19,7 @@ const addBlogPost = dispatch => {
 }
 
 export const { Context, Provider } = createDataContext(
-        blogReducer,
-        {addBlogPost},
-        [{title: "Text Blog Title", content: "Test Blog Content"}]
-    )
+    blogReducer, 
+    {addBlogPost},
+    [{title: "Test Blog Post", content: "Test Blog Post Content"}]
+)

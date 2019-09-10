@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'
 
-// pass in the three things that need to be provided to create a context
-export default(reducer, actions, initialState) => {
+export default (reducer, actions, initialState) => {
     const Context = React.createContext()
 
     const Provider = (props) => {
@@ -14,11 +13,12 @@ export default(reducer, actions, initialState) => {
 
         return (
             <Context.Provider
-                value={{ state, ...boundActions }}
+                value={{state, ...boundActions }}
             >
                 { props.children }
             </Context.Provider>
         )
+
     }
 
     return { Context, Provider }
