@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Context } from '../context/BlogContext'
+import { FontAwesome } from '@expo/vector-icons'
 
 const ShowScreen = (props) => {
     const { state } = useContext(Context)
@@ -16,6 +17,23 @@ const ShowScreen = (props) => {
     )
 }
 
-const style = StyleSheet.create({})
+ShowScreen.navigationOptions = (props) => {
+    return {
+        headerRight: (
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate('Edit', { id: props.navigation.getParam('id') })}
+            >
+                <FontAwesome name="edit" style={style.edit}/>
+            </TouchableOpacity>
+        )
+    }
+}
+
+const style = StyleSheet.create({
+    edit: {
+        fontSize: 30,
+        paddingRight: 10
+    }
+})
 
 export default ShowScreen
