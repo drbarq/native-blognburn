@@ -7,12 +7,12 @@ const EditScreen = (props) => {
     const { state, editBlogPost } = useContext(Context)
     const id = props.navigation.getParam('id')
     const blogPost = state.find(blogPost => blogPost.id === id)
-    const callback = () => props.navigation.navigate('Index')
+    const callback = () => props.navigation.pop()
 
     return (
         <BlogPostForm
             initialValues={{title: blogPost.title, content: blogPost.content}}
-            onSubmit={(id, title, content) => {
+            onSubmit={(title, content) => {
                 editBlogPost(id, title, content, callback)
             }}
         />
